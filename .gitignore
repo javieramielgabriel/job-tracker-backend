@@ -1,0 +1,160 @@
+# =============================================================================
+# .gitignore for JobTracker.Api (.NET 10 / ASP.NET Core / EF Core / PostgreSQL)
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# .NET Build Outputs & Intermediate Files
+# -----------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Pp]ublish/
+[Aa]rtifacts/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+
+# MSBuild & Binary Logs
+*.binlog
+*.msbuild.binlog
+*.log
+[Ll]og/
+[Ll]ogs/
+
+# -----------------------------------------------------------------------------
+# NuGet & Dependency Caches
+# -----------------------------------------------------------------------------
+*.nupkg
+*.snupkg
+!**/packages/build/
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+*.nuget.dgspec.json
+*.nuget.cache
+
+# -----------------------------------------------------------------------------
+# Environment Variables, Secrets & Sensitive Configuration
+# -----------------------------------------------------------------------------
+# Ignore .env and environment-specific .env files
+.env
+.env.*
+*.env
+
+# Allow .env.example templates with placeholder values
+!.env.example
+!**/.env.example
+
+# Ignore local/untracked ASP.NET Core configuration overrides & secret stores
+appsettings.Local.json
+appsettings.*.local.json
+appsettings.Secret.json
+appsettings.Secrets.json
+secrets.json
+
+# Keep standard committed configuration templates
+!appsettings.json
+!appsettings.Development.json
+
+# Private certificates, keys, and credential files
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+*.cer
+*.der
+*.csr
+*.jks
+*.keystore
+*credentials*.json
+*service-account*.json
+
+# -----------------------------------------------------------------------------
+# Unit Testing & Code Coverage (xUnit / Coverlet / ReportGenerator)
+# -----------------------------------------------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coveragereport/
+[Cc]overage[Rr]eport*/
+coverage.cobertura.xml
+coverage.opencover.xml
+coverage.json
+lcov.info
+
+# -----------------------------------------------------------------------------
+# IDEs & Editors (Visual Studio, VS Code, JetBrains Rider)
+# -----------------------------------------------------------------------------
+.vs/
+.idea/
+*.Iws
+*.iml
+*.ipr
+*.DotSettings.user
+
+# User-specific Visual Studio / Solution files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# VS Code workspace state (preserve shared team settings if added later)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.history/
+
+# -----------------------------------------------------------------------------
+# Database Local Files, Backups & Dumps
+# -----------------------------------------------------------------------------
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.bak
+*.dump
+*.sql.gz
+
+# -----------------------------------------------------------------------------
+# Runtime, Crash Dumps & Profiling Artifacts
+# -----------------------------------------------------------------------------
+*.dmp
+*.mdmp
+*.hdmp
+*.trace
+*.nettrace
+*.gcdump
+BenchmarkDotNet.Artifacts/
+
+# -----------------------------------------------------------------------------
+# Operating System & Temporary Files (Windows / macOS / Linux)
+# -----------------------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+*~
+*.tmp
+*.temp
+*.swp
+*.swo
