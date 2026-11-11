@@ -1,7 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using JobTracker.Api.Common.Constants;
 
 namespace JobTracker.Api.Models;
 
+/// <summary>
+/// Response DTO representing a job application and its ordered interview phases.
+/// </summary>
 public sealed record JobApplicationReadDto(
     Guid Id,
     string CompanyName,
@@ -15,35 +19,32 @@ public sealed record JobApplicationReadDto(
     DateTimeOffset UpdatedAtUtc,
     IReadOnlyList<InterviewPhaseReadDto> InterviewPhases);
 
-public sealed record InterviewPhaseReadDto(
-    Guid Id,
-    string Name,
-    DateTimeOffset? ScheduledAtUtc,
-    string? Notes);
-
-public sealed record InterviewPhaseDto
+/// <summary>
+/// Request DTO for updating a job application's status and optional applied timestamp.
+/// </summary>
+public sealed record JobApplicationStatusUpdateDto
 {
-    [Required, StringLength(100, MinimumLength = 1)]
-    public required string Name { get; init; }
+    [Required, EnumDataType(typeof(ApplicationStatus))]
+    public required ApplicationStatus Status { get; init; }
 
-    public DateTimeOffset? ScheduledAtUtc { get; init; }
-
-    [StringLength(2000)]
-    public string? Notes { get; init; }
+    public DateTimeOffset? AppliedAtUtc { get; init; }
 }
 
+/// <summary>
+/// Request DTO for creating a new job application.
+/// </summary>
 public sealed record JobApplicationCreateDto
 {
-    [Required, StringLength(200, MinimumLength = 1)]
+    [Required, StringLength(ApiConstants.Validation.MaxCompanyNameLength, MinimumLength = 1)]
     public required string CompanyName { get; init; }
 
-    [Required, StringLength(200, MinimumLength = 1)]
+    [Required, StringLength(ApiConstants.Validation.MaxJobTitleLength, MinimumLength = 1)]
     public required string JobTitle { get; init; }
 
-    [StringLength(150)]
+    [StringLength(ApiConstants.Validation.MaxLocationLength)]
     public string? Location { get; init; }
 
-    [Url, StringLength(2048)]
+    [Url, StringLength(ApiConstants.Validation.MaxJobUrlLength)]
     public string? JobUrl { get; init; }
 
     [EnumDataType(typeof(ApplicationStatus))]
@@ -51,24 +52,27 @@ public sealed record JobApplicationCreateDto
 
     public DateTimeOffset? AppliedAtUtc { get; init; }
 
-    [StringLength(4000)]
+    [StringLength(ApiConstants.Validation.MaxApplicationNotesLength)]
     public string? Notes { get; init; }
 
     public IReadOnlyList<InterviewPhaseDto> InterviewPhases { get; init; } = [];
 }
 
+/// <summary>
+/// Request DTO for updating an existing job application and reconciling its interview phases.
+/// </summary>
 public sealed record JobApplicationUpdateDto
 {
-    [Required, StringLength(200, MinimumLength = 1)]
+    [Required, StringLength(ApiConstants.Validation.MaxCompanyNameLength, MinimumLength = 1)]
     public required string CompanyName { get; init; }
 
-    [Required, StringLength(200, MinimumLength = 1)]
+    [Required, StringLength(ApiConstants.Validation.MaxJobTitleLength, MinimumLength = 1)]
     public required string JobTitle { get; init; }
 
-    [StringLength(150)]
+    [StringLength(ApiConstants.Validation.MaxLocationLength)]
     public string? Location { get; init; }
 
-    [Url, StringLength(2048)]
+    [Url, StringLength(ApiConstants.Validation.MaxJobUrlLength)]
     public string? JobUrl { get; init; }
 
     [Required, EnumDataType(typeof(ApplicationStatus))]
@@ -76,7 +80,7 @@ public sealed record JobApplicationUpdateDto
 
     public DateTimeOffset? AppliedAtUtc { get; init; }
 
-    [StringLength(4000)]
+    [StringLength(ApiConstants.Validation.MaxApplicationNotesLength)]
     public string? Notes { get; init; }
 
     public IReadOnlyList<InterviewPhaseDto> InterviewPhases { get; init; } = [];

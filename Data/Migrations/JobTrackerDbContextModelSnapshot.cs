@@ -44,9 +44,16 @@ namespace JobTracker.Api.Data.Migrations
                     b.Property<DateTimeOffset?>("ScheduledAtUtc")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("JobApplicationId");
+                    b.HasIndex("JobApplicationId", "ScheduledAtUtc")
+                        .HasDatabaseName("IX_InterviewPhases_JobApplicationId_ScheduledAtUtc");
 
                     b.ToTable("InterviewPhases", "JobTracker");
                 });
@@ -93,7 +100,16 @@ namespace JobTracker.Api.Data.Migrations
                     b.Property<DateTimeOffset>("UpdatedAtUtc")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<uint>("Version")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Status", "CreatedAtUtc")
+                        .HasDatabaseName("IX_JobApplications_Status_CreatedAtUtc");
 
                     b.ToTable("JobApplications", "JobTracker");
                 });
